@@ -4,8 +4,20 @@ module.exports = {
     siteUrl: `https://henrysha.github.io`,
   },
   plugins: [
-    'gatsby-plugin-postcss',
-    'gatsby-plugin-sass',
+    {
+      resolve: `gatsby-plugin-sass`,
+      options: {
+        postCssPlugins: [
+          require(`postcss-preset-env`)({
+            stage: 2,
+            features: {
+              'nesting-rules': true,
+            },
+          }),
+        ],
+        precision: 6,
+      },
+    },
     'gatsby-plugin-image',
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-sitemap',
