@@ -4,6 +4,16 @@ module.exports = {
     siteUrl: `https://henrysha.github.io`,
   },
   plugins: [
+    'gatsby-plugin-react-helmet',
+    {
+      resolve: `gatsby-plugin-google-gtag`,
+      options: {
+        trackingIds: ['G-5BEX80QN7K'],
+        pluginConfig: {
+          head: true,
+        },
+      },
+    },
     {
       resolve: `gatsby-plugin-sass`,
       options: {
@@ -15,11 +25,9 @@ module.exports = {
             },
           }),
         ],
-        precision: 6,
       },
     },
     'gatsby-plugin-image',
-    'gatsby-plugin-react-helmet',
     'gatsby-plugin-sitemap',
     {
       resolve: 'gatsby-plugin-manifest',
@@ -46,13 +54,13 @@ module.exports = {
       },
       __key: 'pages',
     },
-    {
-      resolve: 'gatsby-source-filesystem',
-      options: {
-        name: 'posts',
-        path: './posts/',
-      },
-      __key: 'posts',
-    },
+    // {
+    //   resolve: 'gatsby-source-filesystem',
+    //   options: {
+    //     name: 'posts',
+    //     path: './posts/',
+    //   },
+    //   __key: 'posts',
+    // },
   ],
 }
