@@ -1,16 +1,87 @@
-import { Grid } from '@chakra-ui/react'
+import {
+  Box,
+  Grid,
+  GridItem,
+  Heading,
+  HStack,
+  Tag,
+  Text,
+  useBreakpointValue,
+} from '@chakra-ui/react'
 import { defineCustomElements as deckDeckGoHighlightElement } from '@deckdeckgo/highlight-code/dist/loader'
-
-import Header from '@/components/Header'
+import { graphql, PageProps } from 'gatsby'
+import Layout from '@/components/Layout'
+import { THEME } from '@/constants/theme'
 
 deckDeckGoHighlightElement()
 
-const IndexPage = () => {
+type DataProps = {
+  allMdx: {
+    nodes: [
+      {
+        frontmatter: {
+          category: [string]
+          title: string
+          date_updated: string
+        }
+        timeToRead: number
+        excerpt: string
+      }
+    ]
+    totalCount: number
+  }
+}
+
+const IndexPage = ({ data }: PageProps<DataProps>) => {
+  const titleSize = useBreakpointValue(['lg', 'xl'])
+
+  if (process.env.NODE_ENV === 'production') {
+    return (
+      <Grid placeItems='center' h='100vh'>
+        <Heading>UNDER CONSTRUCTION</Heading>
+      </Grid>
+    )
+  }
+
   return (
-    <Grid>
-      <Header />
-    </Grid>
+    <Layout>
+      <Grid p={5} gap={10} alignItems='start'>
+        {data.allMdx.nodes.map((node) => (
+          <Grid gap={2}>
+            <Heading size={titleSize}>{node.frontmatter.title}</Heading>
+            <Text fontSize='md' color='gray.600'>
+              {node.excerpt}
+            </Text>
+            <Text fontSize='md' color='black'>
+              Last updated: {node.frontmatter.date_updated}
+            </Text>
+            <HStack>
+              {node.frontmatter.category.map((cat) => (
+                <Tag colorScheme={THEME.pointColorScheme}>{cat}</Tag>
+              ))}
+            </HStack>
+          </Grid>
+        ))}
+      </Grid>
+    </Layout>
   )
 }
+
+export const query = graphql`
+  query GetPosts {
+    allMdx(sort: { fields: frontmatter___date_updated, order: ASC }) {
+      nodes {
+        frontmatter {
+          category
+          title
+          date_updated(fromNow: true)
+        }
+        timeToRead
+        excerpt(pruneLength: 200, truncate: true)
+      }
+      totalCount
+    }
+  }
+`
 
 export default IndexPage
