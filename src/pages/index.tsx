@@ -21,6 +21,7 @@ type DataProps = {
       {
         frontmatter: {
           category: [string]
+          tag: [string]
           title: string
           date_updated: string
         }
@@ -56,8 +57,8 @@ const IndexPage = ({ data }: PageProps<DataProps>) => {
               Last updated: {node.frontmatter.date_updated}
             </Text>
             <HStack>
-              {node.frontmatter.category.map((cat) => (
-                <Tag colorScheme={THEME.pointColorScheme}>{cat}</Tag>
+              {node.frontmatter.tag.map((_tag) => (
+                <Tag colorScheme={THEME.pointColorScheme}>{_tag}</Tag>
               ))}
             </HStack>
           </Grid>
@@ -73,6 +74,7 @@ export const query = graphql`
       nodes {
         frontmatter {
           category
+          tag
           title
           date_updated(fromNow: true)
         }
