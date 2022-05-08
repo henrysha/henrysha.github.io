@@ -1,9 +1,7 @@
 ---
 date created: 2022-05-05 00:52
 title: Gatsby를 활용하여 블로그 만들기
-category:
-  - Gatsby.js
-  - devlog
+category: devlog
 tag:
   - Gatsby.js
   - Blog

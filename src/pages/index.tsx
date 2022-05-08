@@ -20,7 +20,7 @@ type DataProps = {
     nodes: [
       {
         frontmatter: {
-          category: [string]
+          category: string
           tag: [string]
           title: string
           date_updated: string
