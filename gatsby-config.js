@@ -87,5 +87,6 @@ module.exports = {
     //   },
     //   __key: 'posts',
     // },
+    'gatsby-plugin-tsconfig-paths',
   ],
 }
