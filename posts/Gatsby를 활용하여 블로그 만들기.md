@@ -7,6 +7,7 @@ tag:
   - Blog
   - GithubPages
 date updated: 2022-05-09 01:23
+timezone: Asia/Seoul
 ---
 
 ## 블로그를 다시 만들어보자는 생각이 들었다.

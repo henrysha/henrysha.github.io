@@ -1,7 +1,5 @@
 import {
-  Box,
   Grid,
-  GridItem,
   Heading,
   HStack,
   Tag,
@@ -10,6 +8,7 @@ import {
 } from '@chakra-ui/react'
 import { defineCustomElements as deckDeckGoHighlightElement } from '@deckdeckgo/highlight-code/dist/loader'
 import { graphql, PageProps } from 'gatsby'
+import { zonedTimeToUtc, format } from 'date-fns-tz'
 import Layout from '@/components/Layout'
 import { THEME } from '@/constants/theme'
 
@@ -24,6 +23,7 @@ type DataProps = {
           tag: [string]
           title: string
           date_updated: string
+          timezone: string
         }
         timeToRead: number
         excerpt: string
@@ -46,7 +46,13 @@ const IndexPage = ({ data }: PageProps<DataProps>) => {
 
   return (
     <Layout>
-      <Grid p={5} gap={10} alignItems='start'>
+      <Grid
+        p={5}
+        gap={10}
+        alignItems='start'
+        justifyContent='center'
+        templateColumns='min(100%,1280px)'
+      >
         {data.allMdx.nodes.map((node) => (
           <Grid gap={2}>
             <Heading size={titleSize}>{node.frontmatter.title}</Heading>
@@ -54,7 +60,14 @@ const IndexPage = ({ data }: PageProps<DataProps>) => {
               {node.excerpt}
             </Text>
             <Text fontSize='md' color='black'>
-              Last modified: {node.frontmatter.date_updated}
+              {format(
+                zonedTimeToUtc(
+                  node.frontmatter.date_updated,
+                  node.frontmatter.timezone
+                ),
+                'yyyy.MM.dd HH:mm z',
+                { timeZone: node.frontmatter.timezone }
+              )}
             </Text>
             <HStack>
               {node.frontmatter.tag.map((_tag) => (
@@ -76,7 +89,8 @@ export const query = graphql`
           category
           tag
           title
-          date_updated(fromNow: true)
+          date_updated
+          timezone
         }
         timeToRead
         excerpt(pruneLength: 200, truncate: true)
