@@ -8,9 +8,11 @@ import {
 } from '@chakra-ui/react'
 import { defineCustomElements as deckDeckGoHighlightElement } from '@deckdeckgo/highlight-code/dist/loader'
 import { graphql, PageProps } from 'gatsby'
-import { zonedTimeToUtc, format } from 'date-fns-tz'
+import { zonedTimeToUtc } from 'date-fns-tz'
 import Layout from '@/components/Layout'
 import { THEME } from '@/constants/theme'
+import { formatDistanceToNow } from 'date-fns'
+import { ko } from 'date-fns/locale'
 
 deckDeckGoHighlightElement()
 
@@ -60,13 +62,13 @@ const IndexPage = ({ data }: PageProps<DataProps>) => {
               {node.excerpt}
             </Text>
             <Text fontSize='md' color='black'>
-              {format(
+              Last Modified:&nbsp;
+              {formatDistanceToNow(
                 zonedTimeToUtc(
                   node.frontmatter.date_updated,
                   node.frontmatter.timezone
                 ),
-                'yyyy.MM.dd HH:mm z',
-                { timeZone: node.frontmatter.timezone }
+                { addSuffix: true, locale: ko }
               )}
             </Text>
             <HStack>
