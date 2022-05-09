@@ -1,6 +1,5 @@
 import {
   Grid,
-  GridItem,
   Heading,
   HStack,
   Icon,
@@ -31,6 +30,9 @@ type DataProps = {
           title: string
           date_created: string
           timezone: string
+        }
+        fields: {
+          slug: string
         }
         timeToRead: number
         excerpt: string
@@ -146,6 +148,9 @@ export const query = graphql`
           title
           date_created
           timezone
+        }
+        fields {
+          slug
         }
         timeToRead
         excerpt(pruneLength: 200, truncate: true)
