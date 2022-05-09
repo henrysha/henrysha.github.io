@@ -54,7 +54,7 @@ const IndexPage = ({ data }: PageProps<DataProps>) => {
               {node.excerpt}
             </Text>
             <Text fontSize='md' color='black'>
-              Last updated: {node.frontmatter.date_updated}
+              Last modified: {node.frontmatter.date_updated}
             </Text>
             <HStack>
               {node.frontmatter.tag.map((_tag) => (
