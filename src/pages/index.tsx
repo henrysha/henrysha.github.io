@@ -1,7 +1,10 @@
 import {
   Grid,
+  GridItem,
   Heading,
   HStack,
+  Icon,
+  Link,
   Tag,
   Text,
   useBreakpointValue,
@@ -13,6 +16,8 @@ import Layout from '@/components/Layout'
 import { THEME } from '@/constants/theme'
 import { formatDistanceToNow } from 'date-fns'
 import { ko } from 'date-fns/locale'
+import { StaticImage } from 'gatsby-plugin-image'
+import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa'
 
 deckDeckGoHighlightElement()
 
@@ -22,9 +27,9 @@ type DataProps = {
       {
         frontmatter: {
           category: string
-          tag: [string]
+          tag: string[]
           title: string
-          date_updated: string
+          date_created: string
           timezone: string
         }
         timeToRead: number
@@ -32,6 +37,11 @@ type DataProps = {
       }
     ]
     totalCount: number
+  }
+  allFile: {
+    group: {
+      fieldValue: string
+    }[]
   }
 }
 
@@ -53,31 +63,71 @@ const IndexPage = ({ data }: PageProps<DataProps>) => {
         gap={10}
         alignItems='start'
         justifyContent='center'
-        templateColumns='min(100%,1280px)'
+        templateRows={{ base: '5em 1fr', md: '1fr' }}
+        templateColumns={{ base: '100%', md: '15em 1fr' }}
       >
-        {data.allMdx.nodes.map((node) => (
-          <Grid gap={2}>
-            <Heading size={titleSize}>{node.frontmatter.title}</Heading>
-            <Text fontSize='md' color='gray.600'>
-              {node.excerpt}
-            </Text>
-            <Text fontSize='md' color='black'>
-              Last Modified:&nbsp;
-              {formatDistanceToNow(
-                zonedTimeToUtc(
-                  node.frontmatter.date_updated,
-                  node.frontmatter.timezone
-                ),
-                { addSuffix: true, locale: ko }
-              )}
-            </Text>
+        <Grid templateColumns={{ base: '15em 1fr', md: '1fr' }} gap={5}>
+          <HStack gap={2}>
+            <StaticImage
+              src='../images/profile.jpeg'
+              alt='profile'
+              width={75}
+              height={75}
+              placeholder='blurred'
+              style={{ borderRadius: '100%' }}
+            />
+            <Grid justifyItems='left' alignItems='end'>
+              <Text>Written by:</Text>
+              <HStack>
+                <Text>@henrysha</Text>
+                <Link href='https://linkedin.com/in/henryseongwookha'>
+                  <Icon as={FaLinkedin} />
+                </Link>
+                <Link href='https://github.com/henrysha'>
+                  <Icon as={FaGithub} />
+                </Link>
+                <Link href='https://twitter.com/HenrySHa'>
+                  <Icon as={FaTwitter} />
+                </Link>
+              </HStack>
+            </Grid>
+          </HStack>
+          <Grid gap={[0, null, 2]}>
+            <Heading size='sm'>Tags</Heading>
             <HStack>
-              {node.frontmatter.tag.map((_tag) => (
-                <Tag colorScheme={THEME.pointColorScheme}>{_tag}</Tag>
+              {data.allFile.group.map(({ fieldValue }) => (
+                <Tag colorScheme={THEME.pointColorScheme}>{fieldValue}</Tag>
               ))}
             </HStack>
           </Grid>
-        ))}
+        </Grid>
+        <Grid justifyItems='center'>
+          {data.allMdx.nodes.map((node) => (
+            <Grid gap={2} maxW='60em'>
+              <Heading size={titleSize}>{node.frontmatter.title}</Heading>
+              <Text fontSize='md' color='gray.600'>
+                {node.excerpt}
+              </Text>
+              <Text fontSize='md' color='black'>
+                {formatDistanceToNow(
+                  zonedTimeToUtc(
+                    node.frontmatter.date_created,
+                    node.frontmatter.timezone || 'Asia/Seoul'
+                  ),
+                  { addSuffix: true, locale: ko }
+                )}
+              </Text>
+              <HStack>
+                {node.frontmatter.tag.map((_tag) => (
+                  <Tag colorScheme={THEME.pointColorScheme}>{_tag}</Tag>
+                ))}
+                <Text fontSize='md' color='gray'>
+                  {node.timeToRead} min read
+                </Text>
+              </HStack>
+            </Grid>
+          ))}
+        </Grid>
       </Grid>
     </Layout>
   )
@@ -85,19 +135,27 @@ const IndexPage = ({ data }: PageProps<DataProps>) => {
 
 export const query = graphql`
   query GetPosts {
-    allMdx(sort: { fields: frontmatter___date_updated, order: ASC }) {
+    allMdx(
+      sort: { fields: frontmatter___date_created, order: DESC }
+      limit: 20
+    ) {
       nodes {
         frontmatter {
           category
           tag
           title
-          date_updated
+          date_created
           timezone
         }
         timeToRead
         excerpt(pruneLength: 200, truncate: true)
       }
       totalCount
+    }
+    allFile(filter: { extension: { in: "md" } }, limit: 2000) {
+      group(field: childMdx___frontmatter___tag) {
+        fieldValue
+      }
     }
   }
 `
