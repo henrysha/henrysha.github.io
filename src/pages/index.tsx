@@ -8,7 +8,6 @@ import {
   Text,
   useBreakpointValue,
 } from '@chakra-ui/react'
-import { defineCustomElements as deckDeckGoHighlightElement } from '@deckdeckgo/highlight-code/dist/loader'
 import { graphql, PageProps } from 'gatsby'
 import { zonedTimeToUtc } from 'date-fns-tz'
 import Layout from '@/components/Layout'
@@ -17,8 +16,6 @@ import { formatDistanceToNow } from 'date-fns'
 import { ko } from 'date-fns/locale'
 import { StaticImage } from 'gatsby-plugin-image'
 import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa'
-
-deckDeckGoHighlightElement()
 
 type DataProps = {
   allMdx: {
@@ -68,7 +65,7 @@ const IndexPage = ({ data }: PageProps<DataProps>) => {
         templateRows={{ base: '5em 1fr', md: '1fr' }}
         templateColumns={{ base: '100%', md: '15em 1fr' }}
       >
-        <Grid templateColumns={{ base: '15em 1fr', md: '1fr' }} gap={5}>
+        <Grid gap={5}>
           <HStack gap={2}>
             <StaticImage
               src='../images/profile.jpeg'
@@ -81,7 +78,9 @@ const IndexPage = ({ data }: PageProps<DataProps>) => {
             <Grid justifyItems='left' alignItems='end'>
               <Text>Written by:</Text>
               <HStack>
+                {/* <Link href='/about'> */}
                 <Text>@henrysha</Text>
+                {/* </Link> */}
                 <Link href='https://linkedin.com/in/henryseongwookha'>
                   <Icon as={FaLinkedin} />
                 </Link>
@@ -94,7 +93,7 @@ const IndexPage = ({ data }: PageProps<DataProps>) => {
               </HStack>
             </Grid>
           </HStack>
-          <Grid gap={[0, null, 2]}>
+          <Grid gap={2} display={{ base: 'none', md: 'grid' }}>
             <Heading size='sm'>Tags</Heading>
             <HStack>
               {data.allFile.group.map(({ fieldValue }) => (
@@ -106,7 +105,9 @@ const IndexPage = ({ data }: PageProps<DataProps>) => {
         <Grid justifyItems='center'>
           {data.allMdx.nodes.map((node) => (
             <Grid gap={2} maxW='60em'>
-              <Heading size={titleSize}>{node.frontmatter.title}</Heading>
+              <Link href={node.fields.slug}>
+                <Heading size={titleSize}>{node.frontmatter.title}</Heading>
+              </Link>
               <Text fontSize='md' color='gray.600'>
                 {node.excerpt}
               </Text>

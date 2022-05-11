@@ -32,7 +32,7 @@ Github Pages를 통해서 잔디도 채우고 블로그도 호스팅하고 일�
 그래서 그냥 [gatsby-cli](https://www.gatsbyjs.com/docs/reference/gatsby-cli/)를 활용해서 `gatsby new` 커맨드부터 시작하기로 했다.
 
 내 설정값은 다음과 같다.
-![Gatsby new config](./attachments/Pasted%20image%2020220505005138.png)
+![Gatsby new config](./attachments/gatsby-cli-settings.png)
 
 Google Analytics 플러그인은 처음부터 등록하지는 않았는데, google analytics plugin 설명에 다음과 같이 나와있다.
 
