@@ -47,14 +47,6 @@ type DataProps = {
 const IndexPage = ({ data }: PageProps<DataProps>) => {
   const titleSize = useBreakpointValue(['lg', 'xl'])
 
-  if (process.env.NODE_ENV === 'production') {
-    return (
-      <Grid placeItems='center' h='100vh'>
-        <Heading>UNDER CONSTRUCTION</Heading>
-      </Grid>
-    )
-  }
-
   return (
     <Layout>
       <Grid
