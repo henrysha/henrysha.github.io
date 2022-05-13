@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import Layout from '@/components/Layout/Layout'
 import { chakraUiComponents } from '@/components/MdxUi'
 import { Profile } from '@/components/Profile'
@@ -10,10 +11,9 @@ import { MDXRenderer } from 'gatsby-plugin-mdx'
 import { BlogBreadcrumb } from '@/components/BlogBreadcrumb'
 import { TocItem } from '@/types/tableOfContents'
 import { TableOfContents } from '@/components/TableOfContents'
+import { useActiveId } from '@/hooks/useActiveId'
 
 import './blog-post.scss'
-import { useMemo } from 'react'
-import { useActiveId } from '@/hooks/useActiveId'
 
 type DataProps = {
   mdx: {
