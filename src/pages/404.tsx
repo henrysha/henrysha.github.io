@@ -1,4 +1,4 @@
-import Layout from '@/components/Layout'
+import Layout from '@/components/Layout/Layout'
 import { Grid, Heading } from '@chakra-ui/react'
 
 import 'normalize.css'

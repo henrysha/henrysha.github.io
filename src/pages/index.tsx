@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react'
 import { graphql, PageProps } from 'gatsby'
 import { zonedTimeToUtc } from 'date-fns-tz'
-import Layout from '@/components/Layout'
+import Layout from '@/components/Layout/Layout'
 import { THEME } from '@/constants/theme'
 import { formatDistanceToNow } from 'date-fns'
 import { ko } from 'date-fns/locale'

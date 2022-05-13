@@ -1,4 +1,4 @@
-import Layout from '@/components/Layout'
+import Layout from '@/components/Layout/Layout'
 import { chakraUiComponents } from '@/components/MdxUi'
 import { Profile } from '@/components/Profile'
 import { Box, Grid, GridItem, Heading } from '@chakra-ui/react'
@@ -12,6 +12,8 @@ import { TocItem } from '@/types/tableOfContents'
 import { TableOfContents } from '@/components/TableOfContents'
 
 import './blog-post.scss'
+import { useMemo } from 'react'
+import { useActiveId } from '@/hooks/useActiveId'
 
 type DataProps = {
   mdx: {
@@ -34,7 +36,19 @@ type DataProps = {
   }
 }
 
+const getListOfIds = (items: TocItem[] | undefined): string[] => {
+  if (!items) return []
+  return items
+    .flatMap((item) => [item.url.slice(1), ...getListOfIds(item.items)])
+    .filter((v) => v)
+}
+
 const BlogPost = ({ data }: PageProps<DataProps>) => {
+  const tocIds = useMemo(() => {
+    return getListOfIds(data.mdx.tableOfContents.items)
+  }, [data.mdx.tableOfContents.items])
+  const activeId = useActiveId(tocIds)
+
   return (
     <Layout>
       <Grid maxW='1600px' m='0 auto' px={[4, null, 10]} gap={5}>
@@ -68,7 +82,10 @@ const BlogPost = ({ data }: PageProps<DataProps>) => {
               <Heading as='h4' size='sm' mb={2}>
                 Table of Contents
               </Heading>
-              <TableOfContents items={data.mdx.tableOfContents.items} />
+              <TableOfContents
+                items={data.mdx.tableOfContents.items}
+                activeId={activeId}
+              />
             </Box>
           </GridItem>
         </Grid>

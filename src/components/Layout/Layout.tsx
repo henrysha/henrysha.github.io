@@ -3,7 +3,9 @@ import { PropsWithChildren } from 'react'
 import { Grid } from '@chakra-ui/react'
 import { defineCustomElements as deckDeckGoHighlightElement } from '@deckdeckgo/highlight-code/dist/loader'
 
-import Header from './Header'
+import Header from '../Header'
+
+import './Layout.css'
 
 deckDeckGoHighlightElement()
 
