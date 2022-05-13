@@ -88,12 +88,12 @@ module.exports = {
               maxWidth: 1200,
             },
           },
-          {
-            resolve: 'gatsby-remark-highlight-code',
-          },
-          {
-            resolve: 'gatsby-remark-autolink-headers',
-          },
+          'gatsby-remark-highlight-code',
+          'gatsby-remark-autolink-headers',
+          'gatsby-remark-external-links',
+          'gatsby-remark-numbered-footnotes',
+          'gatsby-remark-embedder',
+          'gatsby-remark-social-cards',
         ],
       },
     },
