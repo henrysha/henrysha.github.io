@@ -1,29 +1,17 @@
 import Layout from '@/components/Layout'
 import { chakraUiComponents } from '@/components/MdxUi'
 import { Profile } from '@/components/Profile'
-import {
-  Box,
-  Grid,
-  GridItem,
-  Heading,
-  Link,
-  ListItem,
-  UnorderedList,
-} from '@chakra-ui/react'
+import { Box, Grid, GridItem, Heading } from '@chakra-ui/react'
 import { MDXProvider } from '@mdx-js/react'
 import { format, parse } from 'date-fns'
 import { ko } from 'date-fns/locale'
 import { graphql, PageProps } from 'gatsby'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
 import { BlogBreadcrumb } from '@/components/BlogBreadcrumb'
+import { TocItem } from '@/types/tableOfContents'
+import { TableOfContents } from '@/components/TableOfContents'
 
 import './blog-post.scss'
-
-type TocItem = {
-  url: string
-  title: string
-  items?: TocItem[]
-}
 
 type DataProps = {
   mdx: {
@@ -44,21 +32,6 @@ type DataProps = {
     body: string
     timeToRead: number
   }
-}
-
-const TableOfContents = ({ items }: { items: TocItem[] }) => {
-  return (
-    <UnorderedList listStyleType='none' spacing={5}>
-      {items.map(({ url, title, items: subItems }: TocItem) => (
-        <>
-          <ListItem key={url}>
-            <Link href={url}>{title}</Link>
-          </ListItem>
-          {subItems && <TableOfContents items={subItems} />}
-        </>
-      ))}
-    </UnorderedList>
-  )
 }
 
 const BlogPost = ({ data }: PageProps<DataProps>) => {
