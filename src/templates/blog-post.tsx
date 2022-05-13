@@ -51,7 +51,7 @@ const BlogPost = ({ data }: PageProps<DataProps>) => {
 
   return (
     <Layout>
-      <Grid maxW='1092px' m='0 auto' px={[4, null, 10]} gap={5}>
+      <Grid maxW='1194px' m='0 auto' px={[4, null, 10]} gap={5}>
         <BlogBreadcrumb
           category={data.mdx.frontmatter.category}
           title={data.mdx.frontmatter.title}
@@ -69,7 +69,7 @@ const BlogPost = ({ data }: PageProps<DataProps>) => {
           {data.mdx.frontmatter.title}
         </Heading>
         <Grid
-          gap={2}
+          gap={10}
           templateColumns={{ base: '1fr', md: '1fr 200px', lg: '1fr 300px' }}
         >
           <GridItem maxW='100vw'>
