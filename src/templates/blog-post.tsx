@@ -3,9 +3,6 @@ import { chakraUiComponents } from '@/components/MdxUi'
 import { Profile } from '@/components/Profile'
 import {
   Box,
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
   Grid,
   GridItem,
   Heading,
@@ -18,6 +15,7 @@ import { format, parse } from 'date-fns'
 import { ko } from 'date-fns/locale'
 import { graphql, PageProps } from 'gatsby'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
+import { BlogBreadcrumb } from '@/components/BlogBreadcrumb'
 
 import './blog-post.scss'
 
@@ -67,19 +65,10 @@ const BlogPost = ({ data }: PageProps<DataProps>) => {
   return (
     <Layout>
       <Grid maxW='1600px' m='0 auto' px={[4, null, 10]} gap={5}>
-        <Breadcrumb>
-          <BreadcrumbItem>
-            <BreadcrumbLink href='/'>🏠</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbItem>
-            <BreadcrumbLink>{data.mdx.frontmatter.category}</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbItem>
-            <BreadcrumbLink isCurrentPage>
-              {data.mdx.frontmatter.title}
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-        </Breadcrumb>
+        <BlogBreadcrumb
+          category={data.mdx.frontmatter.category}
+          title={data.mdx.frontmatter.title}
+        />
         <Profile
           isBlogPost
           createdDate={format(
