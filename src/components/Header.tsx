@@ -17,7 +17,9 @@ const Header = () => {
 
   return (
     <Flex justifyContent='space-between' alignItems='center' p='5'>
-      <Heading size={headerSize}>Henry's Devlog</Heading>
+      <Link href='/' _hover={{ textDecoration: 'none' }}>
+        <Heading size={headerSize}>Henry's Devlog</Heading>
+      </Link>
       <HStack spacing={[0, 2]}>
         <Link href='/' _hover={{ textDecoration: 'none' }}>
           <Button

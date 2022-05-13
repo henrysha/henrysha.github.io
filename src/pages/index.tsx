@@ -2,7 +2,6 @@ import {
   Grid,
   Heading,
   HStack,
-  Icon,
   Link,
   Tag,
   Text,
@@ -14,8 +13,7 @@ import Layout from '@/components/Layout'
 import { THEME } from '@/constants/theme'
 import { formatDistanceToNow } from 'date-fns'
 import { ko } from 'date-fns/locale'
-import { StaticImage } from 'gatsby-plugin-image'
-import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa'
+import { Profile } from '@/components/Profile'
 
 type DataProps = {
   allMdx: {
@@ -25,7 +23,7 @@ type DataProps = {
           category: string
           tag: string[]
           title: string
-          date_created: string
+          date_updated: string
           timezone: string
         }
         fields: {
@@ -58,33 +56,7 @@ const IndexPage = ({ data }: PageProps<DataProps>) => {
         templateColumns={{ base: '100%', md: '15em 1fr' }}
       >
         <Grid gap={5}>
-          <HStack gap={2}>
-            <StaticImage
-              src='../images/profile.jpeg'
-              alt='profile'
-              width={75}
-              height={75}
-              placeholder='blurred'
-              style={{ borderRadius: '100%' }}
-            />
-            <Grid justifyItems='left' alignItems='end'>
-              <Text>Written by:</Text>
-              <HStack>
-                {/* <Link href='/about'> */}
-                <Text>@henrysha</Text>
-                {/* </Link> */}
-                <Link href='https://linkedin.com/in/henryseongwookha'>
-                  <Icon as={FaLinkedin} />
-                </Link>
-                <Link href='https://github.com/henrysha'>
-                  <Icon as={FaGithub} />
-                </Link>
-                <Link href='https://twitter.com/HenrySHa'>
-                  <Icon as={FaTwitter} />
-                </Link>
-              </HStack>
-            </Grid>
-          </HStack>
+          <Profile />
           <Grid gap={2} display={{ base: 'none', md: 'grid' }}>
             <Heading size='sm'>Tags</Heading>
             <HStack>
@@ -106,7 +78,7 @@ const IndexPage = ({ data }: PageProps<DataProps>) => {
               <Text fontSize='md' color='black'>
                 {formatDistanceToNow(
                   zonedTimeToUtc(
-                    node.frontmatter.date_created,
+                    node.frontmatter.date_updated,
                     node.frontmatter.timezone || 'Asia/Seoul'
                   ),
                   { addSuffix: true, locale: ko }
@@ -131,7 +103,7 @@ const IndexPage = ({ data }: PageProps<DataProps>) => {
 export const query = graphql`
   query GetPosts {
     allMdx(
-      sort: { fields: frontmatter___date_created, order: DESC }
+      sort: { fields: frontmatter___date_updated, order: DESC }
       limit: 20
     ) {
       nodes {
@@ -139,7 +111,7 @@ export const query = graphql`
           category
           tag
           title
-          date_created
+          date_updated
           timezone
         }
         fields {

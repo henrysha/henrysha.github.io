@@ -32,10 +32,13 @@ export const chakraUiComponents = {
   a: (props: LinkProps) => <Link color='teal' {...props} />,
   blockquote: (props: TextProps) => (
     <Box
+      as='blockquote'
       borderLeft='5px solid gray'
       bg='gray.100'
-      m={5}
-      p={5}
+      mx={[0, null, 5]}
+      my={[2, null, 5]}
+      px={5}
+      py={2}
       fontStyle='italic'
       {...props}
     />
