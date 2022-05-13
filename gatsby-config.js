@@ -92,7 +92,7 @@ module.exports = {
             resolve: 'gatsby-remark-highlight-code',
           },
           {
-            resolve: 'gatsby-remark-slug',
+            resolve: 'gatsby-remark-autolink-headers',
           },
         ],
       },

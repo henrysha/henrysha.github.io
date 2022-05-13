@@ -46,7 +46,7 @@ const BlogPost = ({ data }: PageProps<DataProps>) => {
   return (
     <Layout>
       <Grid gap={2} templateColumns={{ base: '1fr', md: '4fr 1fr' }}>
-        <GridItem>
+        <GridItem p={5}>
           <MDXProvider components={chakraUiComponents}>
             <MDXRenderer>{data.mdx.body}</MDXRenderer>
           </MDXProvider>
