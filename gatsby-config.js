@@ -93,7 +93,6 @@ module.exports = {
           'gatsby-remark-external-links',
           'gatsby-remark-numbered-footnotes',
           'gatsby-remark-embedder',
-          'gatsby-remark-social-cards',
         ],
       },
     },
