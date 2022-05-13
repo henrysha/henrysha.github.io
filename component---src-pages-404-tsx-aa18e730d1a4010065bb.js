@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkhenry_s_devlog=self.webpackChunkhenry_s_devlog||[]).push([[218],{5415:function(e,n,r){r.r(n);var s=r(3494),c=r(6541),h=r(5893);n.default=function(){return(0,h.jsx)(s.Z,{children:(0,h.jsx)(c.rj,{placeItems:"center",h:"100%",children:(0,h.jsx)(c.X6,{children:"404 Not Found"})})})}}}]);
+//# sourceMappingURL=component---src-pages-404-tsx-aa18e730d1a4010065bb.js.map
