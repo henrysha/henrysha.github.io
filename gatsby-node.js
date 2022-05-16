@@ -1,4 +1,4 @@
-const { format, zonedTimeToUtc } = require('date-fns-tz')
+const { zonedTimeToUtc, formatInTimeZone } = require('date-fns-tz')
 
 exports.onCreateBabelConfig = ({ actions }) => {
   actions.setBabelPreset({
@@ -18,10 +18,10 @@ exports.onCreateNode = ({ node, actions }) => {
       node.frontmatter(['date created']) ||
       new Date()
 
-    const formattedDate = format(
+    const formattedDate = formatInTimeZone(
       zonedTimeToUtc(createdDate, node.frontmatter.timezone || 'Asia/Seoul'),
-      'yyyy/MM/dd',
-      { timeZone: node.frontmatter.timezone || 'Asia/Seoul' }
+      node.frontmatter.timezone || 'Asia/Seoul',
+      'yyyy/MM/dd'
     )
 
     const value = `${formattedDate}/${node.frontmatter.title.replaceAll(
