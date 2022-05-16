@@ -13,7 +13,10 @@ exports.onCreateNode = ({ node, actions }) => {
   const { createNodeField } = actions
 
   if (node.internal.type === `Mdx`) {
-    const createdDate = node.frontmatter['date updated'] || new Date()
+    const createdDate =
+      node.frontmatter['date updated'] ||
+      node.frontmatter(['date created']) ||
+      new Date()
 
     const formattedDate = format(
       zonedTimeToUtc(createdDate, node.frontmatter.timezone || 'Asia/Seoul'),

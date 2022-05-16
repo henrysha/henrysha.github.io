@@ -52,6 +52,11 @@ module.exports = {
       options: {
         query: `
         {
+          site {
+            siteMetadata {
+              siteUrl
+            }
+          }
           allSitePage {
             nodes {
               path
@@ -63,16 +68,12 @@ module.exports = {
                 slug
               }
               frontmatter {
-                title
                 date_updated
-                tag
-                category
               }
             }
           }
         }
           `,
-        resolveSiteUrl: () => process.env.URL || `https://henrysha.github.io`,
         resolvePages: ({
           allSitePage: { nodes: allPages },
           allMdx: { nodes: allPosts },
@@ -90,13 +91,10 @@ module.exports = {
             return { ...page, ...postsMap[page.path] }
           })
         },
-        serialize: ({ path, title, date_updated, tag, category }) => {
+        serialize: ({ path, date_updated }) => {
           return {
             url: path,
             lastmod: date_updated,
-            title,
-            tag,
-            category,
           }
         },
       },
