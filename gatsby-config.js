@@ -1,3 +1,5 @@
+const { format, zonedTimeToUtc } = require('date-fns-tz')
+
 module.exports = {
   siteMetadata: {
     title: `Henry's Devlog`,
@@ -45,7 +47,60 @@ module.exports = {
     'gatsby-plugin-image',
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
-    'gatsby-plugin-sitemap',
+    {
+      resolve: 'gatsby-plugin-sitemap',
+      options: {
+        query: `
+        {
+          allSitePage {
+            nodes {
+              path
+            }
+          }
+          allMdx {
+            nodes {
+              fields {
+                slug
+              }
+              frontmatter {
+                title
+                date_updated
+                tag
+                category
+              }
+            }
+          }
+        }
+          `,
+        resolveSiteUrl: () => process.env.URL || `https://henrysha.github.io`,
+        resolvePages: ({
+          allSitePage: { nodes: allPages },
+          allMdx: { nodes: allPosts },
+        }) => {
+          const postsMap = allPosts.reduce((acc, node) => {
+            const {
+              fields: { slug },
+            } = node
+            acc[`/${slug}`] = node.frontmatter
+
+            return acc
+          }, {})
+
+          return allPages.map((page) => {
+            return { ...page, ...postsMap[page.path] }
+          })
+        },
+        serialize: ({ path, title, date_updated, tag, category }) => {
+          return {
+            url: path,
+            lastmod: date_updated,
+            title,
+            tag,
+            category,
+          }
+        },
+      },
+    },
     {
       resolve: 'gatsby-plugin-manifest',
       options: {

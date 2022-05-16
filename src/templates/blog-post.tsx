@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useEffect, useLayoutEffect, useMemo } from 'react'
 import Layout from '@/components/Layout/Layout'
 import { chakraUiComponents } from '@/components/MdxUi'
 import { Profile } from '@/components/Profile'
@@ -13,6 +13,7 @@ import { TocItem } from '@/types/tableOfContents'
 import { TableOfContents } from '@/components/TableOfContents'
 import { useActiveId } from '@/hooks/useActiveId'
 
+import mediumZoom from 'medium-zoom'
 import './blog-post.scss'
 import { THEME } from '@/constants/theme'
 import { Helmet } from 'react-helmet'
@@ -56,6 +57,10 @@ const BlogPost = ({ data }: PageProps<DataProps>) => {
     return getListOfIds(data.mdx.tableOfContents.items)
   }, [data.mdx.tableOfContents.items])
   const activeId = useActiveId(tocIds)
+
+  useEffect(() => {
+    mediumZoom('[data-zoomable]')
+  }, [])
 
   return (
     <Layout>
