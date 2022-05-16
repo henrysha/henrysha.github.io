@@ -86,7 +86,9 @@ const IndexPage = ({ data }: PageProps<DataProps>) => {
               </Text>
               <HStack>
                 {node.frontmatter.tag.map((_tag) => (
-                  <Tag colorScheme={THEME.pointColorScheme}>{_tag}</Tag>
+                  <Tag key={_tag} colorScheme={THEME.pointColorScheme}>
+                    {_tag}
+                  </Tag>
                 ))}
                 <Text fontSize='md' color='gray'>
                   {node.timeToRead} min read

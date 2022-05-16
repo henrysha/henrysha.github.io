@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import Layout from '@/components/Layout/Layout'
 import { chakraUiComponents } from '@/components/MdxUi'
 import { Profile } from '@/components/Profile'
-import { Box, Grid, GridItem, Heading } from '@chakra-ui/react'
+import { Box, Grid, GridItem, Heading, HStack, Tag } from '@chakra-ui/react'
 import { MDXProvider } from '@mdx-js/react'
 import { format, parse } from 'date-fns'
 import { ko } from 'date-fns/locale'
@@ -14,6 +14,7 @@ import { TableOfContents } from '@/components/TableOfContents'
 import { useActiveId } from '@/hooks/useActiveId'
 
 import './blog-post.scss'
+import { THEME } from '@/constants/theme'
 
 type DataProps = {
   mdx: {
@@ -65,6 +66,13 @@ const BlogPost = ({ data }: PageProps<DataProps>) => {
           )}
           minutesRead={data.mdx.timeToRead}
         />
+        <HStack>
+          {data.mdx.frontmatter.tag.map((_tag) => (
+            <Tag key={_tag} colorScheme={THEME.pointColorScheme}>
+              {_tag}
+            </Tag>
+          ))}
+        </HStack>
         <Heading as='h1' size='xl' mb={0}>
           {data.mdx.frontmatter.title}
         </Heading>
