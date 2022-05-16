@@ -72,7 +72,7 @@ const BlogPost = ({ data }: PageProps<DataProps>) => {
           gap={10}
           templateColumns={{ base: '1fr', md: '1fr 200px', lg: '1fr 300px' }}
         >
-          <GridItem maxW='100vw'>
+          <GridItem maxW='calc(100vw - 2em)'>
             <MDXProvider components={chakraUiComponents}>
               <MDXRenderer>{data.mdx.body}</MDXRenderer>
             </MDXProvider>
