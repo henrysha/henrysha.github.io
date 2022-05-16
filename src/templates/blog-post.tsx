@@ -2,7 +2,15 @@ import { useEffect, useLayoutEffect, useMemo } from 'react'
 import Layout from '@/components/Layout/Layout'
 import { chakraUiComponents } from '@/components/MdxUi'
 import { Profile } from '@/components/Profile'
-import { Box, Grid, GridItem, Heading, HStack, Tag } from '@chakra-ui/react'
+import {
+  Box,
+  Grid,
+  GridItem,
+  Heading,
+  HStack,
+  Image,
+  Tag,
+} from '@chakra-ui/react'
 import { MDXProvider } from '@mdx-js/react'
 import { format, parse } from 'date-fns'
 import { ko } from 'date-fns/locale'
@@ -17,6 +25,7 @@ import mediumZoom from 'medium-zoom'
 import './blog-post.scss'
 import { THEME } from '@/constants/theme'
 import { Helmet } from 'react-helmet'
+import { GatsbyImage, IGatsbyImageData } from 'gatsby-plugin-image'
 
 type DataProps = {
   site: {
@@ -32,6 +41,14 @@ type DataProps = {
       tag: string[]
       title: string
       timezone: string
+      featured_image: {
+        childImageSharp: {
+          gatsbyImageData: IGatsbyImageData
+          original: {
+            src: string
+          }
+        }
+      }
     }
     fields: {
       slug: string
@@ -72,11 +89,33 @@ const BlogPost = ({ data }: PageProps<DataProps>) => {
         />
         <meta property='og:title' content={data.mdx.frontmatter.title} />
         <meta property='og:description' content={data.mdx.excerpt} />
+        {data.mdx.frontmatter.featured_image?.childImageSharp?.original
+          ?.src && (
+          <meta
+            property='og:image'
+            content={
+              data.mdx.frontmatter.featured_image.childImageSharp.original.src
+            }
+          />
+        )}
         <link
           rel='canonical'
           href={`${data.site.siteMetadata.siteUrl}/${data.mdx.fields.slug}`}
         />
       </Helmet>
+      {data.mdx.frontmatter.featured_image && (
+        <GridItem w='100vw' mb={3}>
+          <GatsbyImage
+            image={
+              data.mdx.frontmatter.featured_image.childImageSharp
+                .gatsbyImageData
+            }
+            alt='profile'
+            style={{ width: '100vw', height: '300px' }}
+          />
+        </GridItem>
+      )}
+
       <Grid maxW='1194px' m='0 auto' px={[4, null, 10]} gap={5}>
         <BlogBreadcrumb
           category={data.mdx.frontmatter.category}
@@ -142,6 +181,14 @@ export const query = graphql`
         tag
         title
         timezone
+        featured_image {
+          childImageSharp {
+            gatsbyImageData
+            original {
+              src
+            }
+          }
+        }
       }
       fields {
         slug

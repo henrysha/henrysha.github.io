@@ -8,6 +8,7 @@ tag:
   - GithubPages
 date updated: 2022-05-09 01:23
 timezone: Asia/Seoul
+featured image: ./attachments/gatsby-cli-settings.png
 ---
 
 ## 블로그를 다시 만들어보자는 생각이 들었다.
