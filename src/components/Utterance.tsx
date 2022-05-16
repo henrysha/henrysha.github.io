@@ -8,7 +8,7 @@ export const Utterance = () => {
 
     script.setAttribute('src', 'https://utteranc.es/client.js')
     script.setAttribute('repo', 'henrysha/henrysha.github.io')
-    script.setAttribute('issue-term', 'title')
+    script.setAttribute('issue-term', 'pathname')
     script.setAttribute('theme', 'github-light')
     script.setAttribute('crossorigin', 'anonymous')
     script.setAttribute('async', 'true')
