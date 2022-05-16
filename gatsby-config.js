@@ -69,6 +69,7 @@ module.exports = {
               }
               frontmatter {
                 date_updated
+                timezone
               }
             }
           }
@@ -91,10 +92,14 @@ module.exports = {
             return { ...page, ...postsMap[page.path] }
           })
         },
-        serialize: ({ path, date_updated }) => {
+        serialize: ({ path, date_updated, timezone }) => {
+          const lastmod = zonedTimeToUtc(
+            date_updated,
+            timezone || 'Asia/Seoul'
+          ).toUTCString()
           return {
             url: path,
-            lastmod: date_updated,
+            lastmod,
           }
         },
       },
