@@ -26,6 +26,7 @@ import './blog-post.scss'
 import { THEME } from '@/constants/theme'
 import { Helmet } from 'react-helmet'
 import { GatsbyImage, IGatsbyImageData } from 'gatsby-plugin-image'
+import { Utterance } from '@/components/Utterance'
 
 type DataProps = {
   site: {
@@ -159,6 +160,7 @@ const BlogPost = ({ data }: PageProps<DataProps>) => {
             <MDXProvider components={chakraUiComponents}>
               <MDXRenderer>{data.mdx.body}</MDXRenderer>
             </MDXProvider>
+            <Utterance />
           </GridItem>
           <GridItem>
             <Box
