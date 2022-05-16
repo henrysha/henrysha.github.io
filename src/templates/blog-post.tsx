@@ -150,7 +150,12 @@ const BlogPost = ({ data }: PageProps<DataProps>) => {
             </MDXProvider>
           </GridItem>
           <GridItem>
-            <Box position='fixed' p={2} bgColor='gray.100'>
+            <Box
+              position='fixed'
+              top={{ md: '400px' }}
+              p={2}
+              bgColor='gray.100'
+            >
               <Heading as='h4' size='sm' mb={2}>
                 Table of Contents
               </Heading>
