@@ -30,7 +30,6 @@ const Layout = ({ children }: PropsWithChildren<{}>) => {
         <title>{metadata.site.siteMetadata.title}</title>
         <meta property='og:url' content={metadata.site.siteMetadata.siteUrl} />
         <meta property='og:type' content='website' />
-        <meta property='og:image' content='../images/profile.jpeg' />
         <meta property='og:title' content={metadata.site.siteMetadata.title} />
         <meta
           property='og:description'
