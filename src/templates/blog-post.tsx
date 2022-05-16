@@ -15,8 +15,14 @@ import { useActiveId } from '@/hooks/useActiveId'
 
 import './blog-post.scss'
 import { THEME } from '@/constants/theme'
+import { Helmet } from 'react-helmet'
 
 type DataProps = {
+  site: {
+    siteMetadata: {
+      siteUrl: string
+    }
+  }
   mdx: {
     frontmatter: {
       category: string
@@ -34,6 +40,7 @@ type DataProps = {
     }
     body: string
     timeToRead: number
+    excerpt: string
   }
 }
 
@@ -52,6 +59,15 @@ const BlogPost = ({ data }: PageProps<DataProps>) => {
 
   return (
     <Layout>
+      <Helmet>
+        <title>{data.mdx.frontmatter.title}</title>
+        <meta
+          property='og:url'
+          content={`${data.site.siteMetadata.siteUrl}/${data.mdx.fields.slug}`}
+        />
+        <meta property='og:title' content={data.mdx.frontmatter.title} />
+        <meta property='og:description' content={data.mdx.excerpt} />
+      </Helmet>
       <Grid maxW='1194px' m='0 auto' px={[4, null, 10]} gap={5}>
         <BlogBreadcrumb
           category={data.mdx.frontmatter.category}
@@ -104,6 +120,11 @@ const BlogPost = ({ data }: PageProps<DataProps>) => {
 
 export const query = graphql`
   query GetPost($slug: String) {
+    site {
+      siteMetadata {
+        siteUrl
+      }
+    }
     mdx(fields: { slug: { eq: $slug } }) {
       frontmatter {
         category
@@ -119,6 +140,7 @@ export const query = graphql`
       tableOfContents
       body
       timeToRead
+      excerpt(pruneLength: 200, truncate: true)
     }
   }
 `

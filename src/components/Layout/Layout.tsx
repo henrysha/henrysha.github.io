@@ -17,6 +17,7 @@ const Layout = ({ children }: PropsWithChildren<{}>) => {
       site {
         siteMetadata {
           title
+          siteUrl
         }
       }
     }
@@ -26,6 +27,15 @@ const Layout = ({ children }: PropsWithChildren<{}>) => {
     <>
       <Helmet>
         <title>{metadata.site.siteMetadata.title}</title>
+        <meta property='og:url' content={metadata.site.siteMetadata.siteUrl} />
+        <meta property='og:type' content='website' />
+        <meta property='og:image' content='../images/profile.jpeg' />
+        <meta
+          property='og:description'
+          content="Henry's personal blog mainly posting tech stuff"
+        />
+        <meta property='og:site_name' content="Henry's Devlog" />
+        <meta property='og:locale' content='ko_KR' />
       </Helmet>
       <Grid h='100vh' templateRows={['80px auto', '88px auto']}>
         <Header />
