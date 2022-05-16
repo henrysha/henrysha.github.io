@@ -14,8 +14,12 @@ import { THEME } from '@/constants/theme'
 import { formatDistanceToNow } from 'date-fns'
 import { ko } from 'date-fns/locale'
 import { Profile } from '@/components/Profile'
+import { Helmet } from 'react-helmet'
 
 type DataProps = {
+  site: {
+    siteMetadata: { siteUrl: string }
+  }
   allMdx: {
     nodes: [
       {
@@ -47,6 +51,9 @@ const IndexPage = ({ data }: PageProps<DataProps>) => {
 
   return (
     <Layout>
+      <Helmet>
+        <link rel='canonical' href={data.site.siteMetadata.siteUrl} />
+      </Helmet>
       <Grid
         p={5}
         gap={10}
@@ -104,6 +111,11 @@ const IndexPage = ({ data }: PageProps<DataProps>) => {
 
 export const query = graphql`
   query GetPosts {
+    site {
+      siteMetadata {
+        siteUrl
+      }
+    }
     allMdx(
       sort: { fields: frontmatter___date_updated, order: DESC }
       limit: 20

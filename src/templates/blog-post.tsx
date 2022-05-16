@@ -72,6 +72,10 @@ const BlogPost = ({ data }: PageProps<DataProps>) => {
         />
         <meta property='og:title' content={data.mdx.frontmatter.title} />
         <meta property='og:description' content={data.mdx.excerpt} />
+        <link
+          rel='canonical'
+          href={`${data.site.siteMetadata.siteUrl}/${data.mdx.fields.slug}`}
+        />
       </Helmet>
       <Grid maxW='1194px' m='0 auto' px={[4, null, 10]} gap={5}>
         <BlogBreadcrumb
