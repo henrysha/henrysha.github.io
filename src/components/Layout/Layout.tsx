@@ -36,6 +36,10 @@ const Layout = ({ children }: PropsWithChildren<{}>) => {
         />
         <meta property='og:site_name' content="Henry's Devlog" />
         <meta property='og:locale' content='ko_KR' />
+        <meta
+          name='naver-site-verification'
+          content='4a0749c1ec3ef911306acb3711efe7f2e63524d9'
+        />
       </Helmet>
       <Grid h='100vh' templateRows={['80px auto', '88px auto']}>
         <Header />
