@@ -42,10 +42,8 @@ module.exports = {
         isUsingColorMode: true,
       },
     },
-    'gatsby-plugin-image',
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
-    'gatsby-remark-images-zoom',
     'gatsby-plugin-sitemap',
     {
       resolve: 'gatsby-plugin-manifest',
@@ -87,6 +85,7 @@ module.exports = {
             resolve: 'gatsby-remark-images',
             options: {
               maxWidth: 1200,
+              linkImagesToOriginal: false,
             },
           },
           'gatsby-remark-highlight-code',
@@ -94,6 +93,7 @@ module.exports = {
           'gatsby-remark-external-links',
           'gatsby-remark-numbered-footnotes',
           'gatsby-remark-embedder',
+          'gatsby-remark-images-zoom',
         ],
       },
     },

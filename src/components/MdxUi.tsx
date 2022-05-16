@@ -28,15 +28,7 @@ export const chakraUiComponents = {
   h5: (props: HeadingProps) => <Heading as='h5' mb={2} size='sm' {...props} />,
   h6: (props: HeadingProps) => <Heading as='h6' mb={2} size='xs' {...props} />,
   p: (props: TextProps) => <Text lineHeight={2} fontSize='lg' {...props} />,
-  img: (props: ImageProps) => (
-    <Image
-      data-zoomable
-      onClick={(e) => {
-        e.preventDefault()
-      }}
-      {...props}
-    />
-  ),
+  img: (props: ImageProps) => <Image data-zoomable {...props} />,
   inlineCode: (props: CodeProps) => (
     <Code colorScheme='gray' variant='solid' {...props} />
   ),
