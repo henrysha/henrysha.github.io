@@ -9,6 +9,8 @@ import './Layout.css'
 import { useStaticQuery, graphql } from 'gatsby'
 import { Helmet } from 'react-helmet'
 
+import profileImage from '@/images/profile.jpeg'
+
 deckDeckGoHighlightElement()
 
 const Layout = ({ children }: PropsWithChildren<{}>) => {
@@ -35,6 +37,7 @@ const Layout = ({ children }: PropsWithChildren<{}>) => {
           property='og:description'
           content={metadata.site.siteMetadata.description}
         />
+        <meta property='og:image' content={profileImage} />
         <meta property='og:site_name' content="Henry's Devlog" />
         <meta property='og:locale' content='ko_KR' />
         <meta
