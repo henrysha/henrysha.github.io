@@ -13,7 +13,10 @@ import {
   Icon,
   HStack,
 } from '@chakra-ui/react'
+import mediumZoom from 'medium-zoom'
 import { FaExternalLinkAlt } from 'react-icons/fa'
+
+mediumZoom('[data-zoomable]')
 
 export const chakraUiComponents = {
   h1: (props: HeadingProps) => <Heading as='h1' mb={2} size='xl' {...props} />,
@@ -25,7 +28,15 @@ export const chakraUiComponents = {
   h5: (props: HeadingProps) => <Heading as='h5' mb={2} size='sm' {...props} />,
   h6: (props: HeadingProps) => <Heading as='h6' mb={2} size='xs' {...props} />,
   p: (props: TextProps) => <Text lineHeight={2} fontSize='lg' {...props} />,
-  img: (props: ImageProps) => <Image {...props} />,
+  img: (props: ImageProps) => (
+    <Image
+      data-zoomable
+      onClick={(e) => {
+        e.preventDefault()
+      }}
+      {...props}
+    />
+  ),
   inlineCode: (props: CodeProps) => (
     <Code colorScheme='gray' variant='solid' {...props} />
   ),

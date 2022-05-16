@@ -45,6 +45,7 @@ module.exports = {
     'gatsby-plugin-image',
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
+    'gatsby-remark-images-zoom',
     'gatsby-plugin-sitemap',
     {
       resolve: 'gatsby-plugin-manifest',
