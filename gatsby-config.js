@@ -1,4 +1,4 @@
-const { zonedTimeToUtc, formatInTimeZone } = require('date-fns-tz')
+const { format, zonedTimeToUtc } = require('date-fns-tz')
 
 module.exports = {
   siteMetadata: {
@@ -95,9 +95,8 @@ module.exports = {
         },
         serialize: ({ path, date_updated, timezone }) => {
           if (date_updated) {
-            const lastmod = formatInTimeZone(
+            const lastmod = format(
               zonedTimeToUtc(date_updated, timezone || 'Asia/Seoul'),
-              timezone || 'Asia/Seoul',
               'yyyy/MM/dd HH:mm'
             )
             return {
