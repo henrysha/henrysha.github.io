@@ -1,3 +1,5 @@
+/*! medium-zoom 1.0.6 | MIT License | https://github.com/francoischalifour/medium-zoom */
+
 /** @license React v16.13.1
  * react-is.production.min.js
  *
