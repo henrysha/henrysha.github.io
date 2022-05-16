@@ -17,6 +17,7 @@ const Layout = ({ children }: PropsWithChildren<{}>) => {
       site {
         siteMetadata {
           title
+          description
           siteUrl
         }
       }
@@ -33,7 +34,7 @@ const Layout = ({ children }: PropsWithChildren<{}>) => {
         <meta property='og:title' content={metadata.site.siteMetadata.title} />
         <meta
           property='og:description'
-          content="Henry's personal blog mainly posting tech stuff"
+          content={metadata.site.siteMetadata.description}
         />
         <meta property='og:site_name' content="Henry's Devlog" />
         <meta property='og:locale' content='ko_KR' />

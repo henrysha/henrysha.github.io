@@ -4,6 +4,7 @@ module.exports = {
   siteMetadata: {
     title: `Henry's Devlog`,
     siteUrl: `https://henrysha.github.io`,
+    description: `Henry's personal blog mainly posting tech stuff`,
   },
   plugins: [
     'gatsby-plugin-react-helmet',
