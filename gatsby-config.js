@@ -93,14 +93,17 @@ module.exports = {
           })
         },
         serialize: ({ path, date_updated, timezone }) => {
-          const lastmod = zonedTimeToUtc(
-            date_updated,
-            timezone || 'Asia/Seoul'
-          ).toUTCString()
-          return {
-            url: path,
-            lastmod,
+          if (date_updated) {
+            const lastmod = format(
+              zonedTimeToUtc(date_updated, timezone || 'Asia/Seoul'),
+              'yyyy/MM/dd HH:mm'
+            )
+            return {
+              url: path,
+              lastmod,
+            }
           }
+          return { url: path }
         },
       },
     },
